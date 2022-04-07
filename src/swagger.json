@@ -22,12 +22,216 @@
         "http"
     ],
     "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Add a new user",
+                "description": "",
+                "operationId": "addUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object that needs to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Post"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid username/password supplied"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Search all user",
+                "description": "",
+                "operationId": "searchUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid username/password supplied"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Logs user into the system",
+                "description": "",
+                "operationId": "loginUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "The user email for login",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "The password for login in clear text",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object to maker login",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid username/password supplied"
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Logs out current logged in user session",
+                "description": "",
+                "operationId": "logoutUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/user/{idUser}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get user by user name",
+                "description": "",
+                "operationId": "getUserByName",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": []
+            },
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Updated user",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "updateUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "description": "idUser that need to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated user object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Put"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid user supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Delete user",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "deleteUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "description": "ID of the order that needs to be deleted",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1,
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
         "/commands": {
             "post": {
                 "tags": [
                     "commands"
                 ],
-                "summary": "Add a new commands to the store",
+                "summary": "Add a new commands",
                 "description": "",
                 "operationId": "addCommands",
                 "consumes": [
@@ -40,14 +244,44 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "Commands object that needs to be added to the store",
+                        "description": "Commands object that needs to be added",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/Commands Post"
                         }
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid parameters"
+                    }
+                }
             },
+            "get": {
+                "tags": [
+                    "commands"
+                ],
+                "summary": "Search commands",
+                "description": "",
+                "operationId": "searchCommands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/commands/{idCommand}": {
             "put": {
                 "tags": [
                     "commands"
@@ -63,16 +297,35 @@
                 ],
                 "parameters": [
                     {
+                        "name": "idCommand",
+                        "in": "path",
+                        "description": "ID of the command that needs to be update",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1,
+                        "format": "int64"
+                    },
+                    {
                         "in": "body",
                         "name": "body",
-                        "description": "Commands object that needs to be added to the store",
+                        "description": "Commands object that needs to be update",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/Commands Put"
                         }
                     }
-                ]
-            },
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid parameters"
+                    }
+                }
+            }
+        },
+        "/delete/{idCommand}": {
             "delete": {
                 "tags": [
                     "commands"
@@ -96,131 +349,32 @@
                         "minimum": 1,
                         "format": "int64"
                     }
-                ]
-            },
-            "get": {
-                "tags": [
-                    "commands"
                 ],
-                "summary": "Search commands",
-                "description": "",
-                "operationId": "searchCommands",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-
-                ]
-            }
-        },
-     
-
-
-        "/user": {
-            "post": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Add a new user to the store",
-                "description": "",
-                "operationId": "addUser",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "User object that needs to be added to the store",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/User Post"
-                        }
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Command not found"
                     }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Update an existing user",
-                "description": "",
-                "operationId": "userCommands",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "Commands object that needs to be update to the store",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/User Put"
-                        }
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Delete an existing user",
-                "description": "",
-                "operationId": "deleteUser",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "idUser",
-                        "in": "path",
-                        "description": "ID of the order that needs to be deleted",
-                        "required": true,
-                        "type": "integer",
-                        "minimum": 1,
-                        "format": "int64"
-                    }
-                ]
-            },
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Search user",
-                "description": "",
-                "operationId": "searchUser",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-
-                ]
+                }
             }
         }
-        
-
-
-
-
-
     },
     "definitions": {
+        "User Login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "fulano@email.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "102030534576dgdfg"
+                }
+            }
+        },
         "User Post": {
             "type": "object",
             "properties": {
@@ -244,10 +398,8 @@
                     "type": "number",
                     "example": "1 comum, 2 admin "
                 }
-
             }
         },
-
         "User Put": {
             "type": "object",
             "properties": {
@@ -273,7 +425,6 @@
                 }
             }
         },
-
         "Commands Post": {
             "type": "object",
             "properties": {

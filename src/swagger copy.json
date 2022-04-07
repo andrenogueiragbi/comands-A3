@@ -666,6 +666,7 @@
       }
     },
     "/user/login": {
+
       "get": {
         "tags": [
           "user"
