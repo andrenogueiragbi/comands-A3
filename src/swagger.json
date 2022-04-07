@@ -1,0 +1,328 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Sistema de salvamento de comandos",
+        "version": "1.0.0",
+        "title": "Comands"
+    },
+    "host": "comandos.andregbi.com.br:3000",
+    "basePath": "/v1",
+    "tags": [
+        {
+            "name": "Routes",
+            "description": "rotas para comandos",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/commands": {
+            "post": {
+                "tags": [
+                    "commands"
+                ],
+                "summary": "Add a new commands to the store",
+                "description": "",
+                "operationId": "addCommands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Commands object that needs to be added to the store",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Commands Post"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "commands"
+                ],
+                "summary": "Update an existing commands",
+                "description": "",
+                "operationId": "updateCommands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Commands object that needs to be added to the store",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Commands Put"
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "commands"
+                ],
+                "summary": "Delete an existing commands",
+                "description": "",
+                "operationId": "deleteCommands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCommand",
+                        "in": "path",
+                        "description": "ID of the order that needs to be deleted",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1,
+                        "format": "int64"
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "commands"
+                ],
+                "summary": "Search commands",
+                "description": "",
+                "operationId": "searchCommands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+
+                ]
+            }
+        },
+     
+
+
+        "/user": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Add a new user to the store",
+                "description": "",
+                "operationId": "addUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object that needs to be added to the store",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Post"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update an existing user",
+                "description": "",
+                "operationId": "userCommands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Commands object that needs to be update to the store",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Put"
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Delete an existing user",
+                "description": "",
+                "operationId": "deleteUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "description": "ID of the order that needs to be deleted",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1,
+                        "format": "int64"
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Search user",
+                "description": "",
+                "operationId": "searchUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+
+                ]
+            }
+        }
+        
+
+
+
+
+
+    },
+    "definitions": {
+        "User Post": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "fulado de tal"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "fulano@email.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "102030534576dgdfg"
+                },
+                "company": {
+                    "type": "string",
+                    "example": "empresa X"
+                },
+                "level": {
+                    "type": "number",
+                    "example": "1 comum, 2 admin "
+                }
+
+            }
+        },
+
+        "User Put": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "fulado de tal"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "fulano@email.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "102030534576dgdfg"
+                },
+                "company": {
+                    "type": "string",
+                    "example": "empresa X"
+                },
+                "level": {
+                    "type": "number",
+                    "example": "1 comum, 2 admin "
+                }
+            }
+        },
+
+        "Commands Post": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "list directory"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "linux"
+                },
+                "make": {
+                    "type": "string",
+                    "example": "list directory"
+                },
+                "tag": {
+                    "type": "string",
+                    "example": "listar,linux,arquivo"
+                },
+                "commands": {
+                    "type": "string",
+                    "example": "ls -lha"
+                }
+            }
+        },
+        "Commands Put": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "list directory"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "linux"
+                },
+                "make": {
+                    "type": "string",
+                    "example": "list directory"
+                },
+                "tag": {
+                    "type": "string",
+                    "example": "listar,linux,arquivo"
+                },
+                "commands": {
+                    "type": "string",
+                    "example": "ls -lha"
+                }
+            }
+        }
+    }
+}
