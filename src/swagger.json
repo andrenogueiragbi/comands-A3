@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Sistema de salvamento de comandos",
+        "description": "API route documentation, to maintain program data that documents commands and syntax for different types of systems, devices and services",
         "version": "1.0.0",
         "title": "Comands"
     },
