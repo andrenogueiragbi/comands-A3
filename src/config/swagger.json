@@ -428,50 +428,58 @@
         "Commands Post": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "list directory"
-                },
                 "type": {
                     "type": "string",
                     "example": "linux"
                 },
-                "make": {
+                "title": {
                     "type": "string",
-                    "example": "list directory"
+                    "example": "listar diretorio"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "comandos usado para lista arquivos e diretorios dentro no linux"
+                },
+                "commands": {
+                    "type": "string",
+                    "example": "ls -lha"
                 },
                 "tag": {
                     "type": "string",
                     "example": "listar,linux,arquivo"
                 },
-                "commands": {
+                "creator": {
                     "type": "string",
-                    "example": "ls -lha"
+                    "example": "listar,linux,arquivo"
                 }
             }
         },
         "Commands Put": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "list directory"
-                },
                 "type": {
                     "type": "string",
                     "example": "linux"
                 },
-                "make": {
+                "title": {
                     "type": "string",
-                    "example": "list directory"
+                    "example": "listar diretorio"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "comandos usado para lista arquivos e diretorios dentro no linux"
+                },
+                "commands": {
+                    "type": "string",
+                    "example": "ls -lha"
                 },
                 "tag": {
                     "type": "string",
                     "example": "listar,linux,arquivo"
                 },
-                "commands": {
+                "creator": {
                     "type": "string",
-                    "example": "ls -lha"
+                    "example": "listar,linux,arquivo"
                 }
             }
         }
