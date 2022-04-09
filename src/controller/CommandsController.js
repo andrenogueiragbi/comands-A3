@@ -20,12 +20,23 @@ module.exports = {
     },
 
     async store(req, res) {
+
+
+        if (Object.keys(req.body).length === 0 || !req.body.commands) {
+            return res.status(400).send({
+                erro: true,
+                message: 'Missing parameter'
+
+            });
+        }
+
         const { type,
             title,
             description,
             commands,
             tags,
             creator } = req.body;
+
 
         data = await Commands.findOne({ where: { commands: commands } })
 
@@ -38,7 +49,7 @@ module.exports = {
             });
         }
 
-        if (!type || !title || !description || !commands || !tags || !creator) {
+        if (!type || !title || !description || !tags || !creator) {
             return res.status(400).send({
                 erro: true,
                 message: 'Missing parameter'
@@ -58,20 +69,41 @@ module.exports = {
 
 
     async update(req, res) {
-        const { type, title, description, commands, tags, creator } = req.body;
+
         const { IdCommand } = req.params;
 
-
-        data = await Commands.findOne({ where: { id: IdCommand } })
-
-        console.log(">>>>>>", IdCommand)
-
-        if (data == null) {
+        if (Object.keys(req.body).length === 0 || !req.body.commands) {
             return res.status(400).send({
                 erro: true,
-                message: 'Commands does not exist to update'
+                message: 'Missing parameter'
+
             });
         }
+        const { type, title, description, commands, tags, creator } = req.body;
+        
+
+        dataCheckExist = await Commands.findOne({ where: { id: IdCommand } })
+        
+
+        if (dataCheckExist == null) {
+            return res.status(400).send({
+                erro: true,
+                message: 'idCommands does not exist to update'
+            });
+        }
+
+        dataCheckDuplicit = await Commands.findOne({ where: { commands: commands } })
+
+
+        if (dataCheckDuplicit) {
+            return res.status(400).send({
+                erro: true,
+                message: 'commands already exists',
+                commands: dataCheckDuplicit
+
+            });
+        }
+
 
         if (!type || !title || !description || !commands || !tags || !creator) {
             return res.status(400).send({
@@ -96,6 +128,7 @@ module.exports = {
 
     async delete(req, res) {
         const { IdCommand } = req.params;
+        
         data = await Commands.findOne({ where: { id: IdCommand } })
 
         if (data == null) {
