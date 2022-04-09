@@ -1,6 +1,14 @@
 const express = require('express');
+const commands = require('./controller/CommandsController')
 
 const routes = express.Router();
+
+
+routes.get('/commands', commands.index)
+routes.post('/commands', commands.store)
+routes.put('/commands/:IdCommand', commands.update)
+routes.delete('/commands/:IdCommand', commands.delete)
+
 
 
 routes.get('/online', (req, res) => {

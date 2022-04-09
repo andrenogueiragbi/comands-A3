@@ -2,9 +2,10 @@ const express = require('express')
 const morgan = require('morgan');
 const cors = require('cors');
 const routes = require('./routes')
-const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
-const swaggerDocument = require("./swagger.json")
+const swaggerDocument = require("./config/swagger.json")
+
+require('./database')
 
 const app = express();
 
