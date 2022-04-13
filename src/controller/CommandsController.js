@@ -3,32 +3,34 @@ const Commands = require('../modal/Commands');
 module.exports = {
     async index(req, res) {
 
-        const commands = await Commands.findAll();
+        try {
 
-        if (commands.length == 0) {
-            return res.status(404).send({
+            const commands = await Commands.findAll();
+
+            if (commands.length == 0) {
+                return res.status(404).send({
+                    erro: true,
+                    message: 'Command list is empty'
+                });
+            }
+
+            return res.status(200).send({
+                erro: false,
+                commands
+            });
+
+        } catch (e) {
+
+            return res.status(400).send({
                 erro: true,
-                message: 'Command list is empty'
+                message: e,
             });
         }
-
-        return res.status(200).send({
-            erro: false,
-            commands
-        });
 
     },
 
     async store(req, res) {
 
-
-        if (Object.keys(req.body).length === 0 || !req.body.commands) {
-            return res.status(400).send({
-                erro: true,
-                message: 'Missing parameter'
-
-            });
-        }
 
         const { type,
             title,
@@ -37,119 +39,142 @@ module.exports = {
             tags,
             creator } = req.body;
 
+        if (type && title && description && commands && tags && creator) {
 
-        data = await Commands.findOne({ where: { commands: commands } })
+            try {
 
-        if (data) {
+                if (await Commands.findOne({ where: { commands: commands } })) {
+                    return res.status(400).send({
+                        erro: true,
+                        message: 'commands already exists',
+                    });
+                }
+
+                const commandsNew = await Commands.create({ type, title, description, commands, tags, creator });
+
+                return res.status(200).send({
+                    erro: false,
+                    message: 'commands created success',
+                    commandsNew
+                })
+
+
+            } catch (e) {
+                return res.status(500).send({
+                    erro: true,
+                    message: e,
+                });
+            }
+
+        } else {
+
             return res.status(400).send({
                 erro: true,
-                message: 'commands already exists',
-                commands: data
+                message: "type, title,description, commands, tags and creator is requeried",
+            })
 
-            });
         }
-
-        if (!type || !title || !description || !tags || !creator) {
-            return res.status(400).send({
-                erro: true,
-                message: 'Missing parameter'
-
-            });
-        }
-
-        const commandsNew = await Commands.create({ type, title, description, commands, tags, creator });
-
-        return res.status(200).send({
-            erro: false,
-            message: 'commands created success',
-            commandsNew
-        })
-
     },
-
 
     async update(req, res) {
 
         const { IdCommand } = req.params;
-
-        if (Object.keys(req.body).length === 0 || !req.body.commands) {
-            return res.status(400).send({
-                erro: true,
-                message: 'Missing parameter'
-
-            });
-        }
         const { type, title, description, commands, tags, creator } = req.body;
-        
 
-        dataCheckExist = await Commands.findOne({ where: { id: IdCommand } })
-        
+        if (IdCommand && type && title && description && commands && tags && creator) {
 
-        if (dataCheckExist == null) {
-            return res.status(400).send({
-                erro: true,
-                message: 'idCommands does not exist to update'
-            });
-        }
+            try {
+                const userExist = await Commands.findByPk(IdCommand);
 
-        dataCheckDuplicit = await Commands.findOne({ where: { commands: commands } })
+                if (!userExist) {
+                    return res.status(404).send({
+                        erro: true,
+                        message: 'command not found for update'
+                    });
 
+                }
 
-        if (dataCheckDuplicit) {
-            return res.status(400).send({
-                erro: true,
-                message: 'commands already exists',
-                commands: dataCheckDuplicit
+                if (await Commands.findOne({ where: { commands: commands } })) {
+                    return res.status(400).send({
+                        erro: true,
+                        message: 'commands already exists',
 
-            });
-        }
+                    });
+                }
 
+                await Commands.update({ type, title, description, commands, tags, creator }, {
+                    where: {
+                        id: IdCommand,
+                    }
+                });
 
-        if (!type || !title || !description || !commands || !tags || !creator) {
-            return res.status(400).send({
-                erro: true,
-                message: 'Missing parameter'
+                return res.status(200).send({
+                    erro: false,
+                    message: "Commands update with success"
+                });
 
-            });
-        }
+            } catch (e) {
+                return res.status(500).send({
+                    erro: true,
+                    message: e,
+                });
 
-        await Commands.update({ type, title, description, commands, tags, creator }, {
-            where: {
-                id: IdCommand,
             }
-        });
 
-        return res.status(200).send({
-            erro: false,
-            message: "Commands update with success"
-        });
+
+        } else {
+            return res.status(400).send({
+                erro: true,
+                message: "id command, type, title, description commands,tags ,creator , is requeried",
+            })
+        }
 
     },
 
     async delete(req, res) {
         const { IdCommand } = req.params;
-        
-        data = await Commands.findOne({ where: { id: IdCommand } })
 
-        if (data == null) {
+
+        if (IdCommand) {
+
+            try {
+
+                if (!await Commands.findOne({ where: { id: IdCommand } })) {
+                    return res.status(400).send({
+                        erro: true,
+                        message: 'Commands does not exist to delete',
+                    });
+                }
+
+                await Commands.destroy({
+                    where: {
+                        id: IdCommand
+                    }
+                });
+
+                return res.status(200).send({
+                    erro: false,
+                    message: "Commands delete with success",
+
+
+                });
+
+
+            } catch (e) {
+                return res.status(500).send({
+                    erro: true,
+                    message: e,
+                });
+            }
+
+        } else {
+
             return res.status(400).send({
                 erro: true,
-                message: 'Commands does not exist to delete'
-            });
+                message: "id command is requeried",
+            })
+
         }
-
-        await Commands.destroy({
-            where: {
-                id: IdCommand
-            }
-        });
-
-        return res.status(200).send({
-            erro: false,
-            message: "Commands delete with success",
-            deleted: data
-
-        });
 
     }
 

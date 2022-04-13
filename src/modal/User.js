@@ -8,15 +8,20 @@ class User extends Model {
             name: DataTypes.STRING,
             email: DataTypes.STRING,
             password: DataTypes.STRING,
+            islogged: DataTypes.BOOLEAN,
+            level: DataTypes.NUMBER,
+            company: DataTypes.STRING,
+            active: DataTypes.BOOLEAN,
             islogged: DataTypes.BOOLEAN
-        }, {
+
+        },{
             sequelize,
             hooks: {
                 beforeCreate: (user) =>{
                     const salt = bcrypt.genSaltSync();
                     user.password = bcrypt.hashSync(user.password,salt);
                 }
-            }
+            },
 
         })
     }

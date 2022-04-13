@@ -5,7 +5,6 @@ const User = require('../modal/User')
 const Commands = require('../modal/Commands')
 
 
-
 //iniciando as a conexão do banco de dados
 const connection = new Sequilize(dbConfig)
 

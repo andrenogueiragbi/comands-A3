@@ -29,6 +29,18 @@ module.exports = {
         defaultValue:1
 
       },
+      company: {
+        type:Sequelize.STRING,
+        allowNull: false,
+
+      },
+      active: {
+        type:Sequelize.BOOLEAN,
+        defaultValue:true
+      },
+      islogged: {
+        type:Sequelize.BOOLEAN,
+      },
 
       created_at: {
         type: Sequelize.DATE,
