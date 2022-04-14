@@ -8,11 +8,10 @@ class User extends Model {
             name: DataTypes.STRING,
             email: DataTypes.STRING,
             password: DataTypes.STRING,
-            islogged: DataTypes.BOOLEAN,
             level: DataTypes.NUMBER,
             company: DataTypes.STRING,
             active: DataTypes.BOOLEAN,
-            islogged: DataTypes.BOOLEAN
+            isLogged: DataTypes.BOOLEAN
 
         },{
             sequelize,

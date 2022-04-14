@@ -38,7 +38,7 @@ module.exports = {
         type:Sequelize.BOOLEAN,
         defaultValue:true
       },
-      islogged: {
+      is_logged: {
         type:Sequelize.BOOLEAN,
       },
 

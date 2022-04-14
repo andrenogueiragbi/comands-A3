@@ -32,7 +32,7 @@ module.exports = {
 
 
                 return res.status(200).send({
-                    status: 1,
+                    erro: false,
                     message: "User logged",
                     user,
                     token: generateToken({ id: user.id })
