@@ -5,18 +5,18 @@ module.exports = {
 
         try {
 
-            const commands = await typesCommands.findAll();
+            const types = await typesCommands.findAll();
 
-            if (commands.length == 0) {
+            if (types.length == 0) {
                 return res.status(404).send({
                     erro: true,
-                    message: 'Command list is empty'
+                    message: 'Types commands list is empty'
                 });
             }
 
             return res.status(200).send({
                 erro: false,
-                commands
+                types
             });
 
         } catch (e) {
@@ -32,30 +32,25 @@ module.exports = {
     async store(req, res) {
 
 
-        const { type,
-            title,
-            description,
-            commands,
-            tags,
-            creator } = req.body;
+        const { name } = req.body;
 
-        if (type && title && description && commands && tags && creator) {
+        if (name) {
 
             try {
 
-                if (await Commands.findOne({ where: { commands: commands } })) {
+                if (await typesCommands.findOne({ where: { name: name } })) {
                     return res.status(400).send({
                         erro: true,
-                        message: 'commands already exists',
+                        message: 'Types commands already exists',
                     });
                 }
 
-                const commandsNew = await Commands.create({ type, title, description, commands, tags, creator });
+                const typesCommandsNew = await typesCommands.create({ name });
 
                 return res.status(200).send({
                     erro: false,
-                    message: 'commands created success',
-                    commandsNew
+                    message: 'Types commands created success',
+                    typesCommandsNew
                 })
 
 
@@ -70,7 +65,7 @@ module.exports = {
 
             return res.status(400).send({
                 erro: true,
-                message: "type, title,description, commands, tags and creator is requeried",
+                message: "name is requeried",
             })
 
         }
@@ -78,39 +73,39 @@ module.exports = {
 
     async update(req, res) {
 
-        const { IdCommand } = req.params;
-        const { type, title, description, commands, tags, creator } = req.body;
+        const { Idtype } = req.params;
+        const { name } = req.body;
 
-        if (IdCommand && type && title && description && commands && tags && creator) {
+        if (Idtype && name) {
 
             try {
-                const userExist = await Commands.findByPk(IdCommand);
+                const typeExist = await typesCommands.findByPk(Idtype);
 
-                if (!userExist) {
+                if (!typeExist) {
                     return res.status(404).send({
                         erro: true,
-                        message: 'command not found for update'
+                        message: 'Types commands not found for update'
                     });
 
                 }
 
-                if (await Commands.findOne({ where: { commands: commands } })) {
+                if (await typesCommands.findOne({ where: { name: name } })) {
                     return res.status(400).send({
                         erro: true,
-                        message: 'commands already exists',
+                        message: 'Types commands already exists',
 
                     });
                 }
 
-                await Commands.update({ type, title, description, commands, tags, creator }, {
+                await typesCommands.update({ name: name }, {
                     where: {
-                        id: IdCommand,
+                        id: Idtype,
                     }
                 });
 
                 return res.status(200).send({
                     erro: false,
-                    message: "Commands update with success"
+                    message: "Types commands update with success"
                 });
 
             } catch (e) {
@@ -125,36 +120,36 @@ module.exports = {
         } else {
             return res.status(400).send({
                 erro: true,
-                message: "id command, type, title, description commands,tags ,creator , is requeried",
+                message: "id command and name, is requeried",
             })
         }
 
     },
 
     async delete(req, res) {
-        const { IdCommand } = req.params;
+        const { Idtype } = req.params;
 
 
-        if (IdCommand) {
+        if (Idtype) {
 
             try {
 
-                if (!await Commands.findOne({ where: { id: IdCommand } })) {
+                if (!await typesCommands.findOne({ where: { id: Idtype } })) {
                     return res.status(400).send({
                         erro: true,
-                        message: 'Commands does not exist to delete',
+                        message: 'Types commands does not exist to delete',
                     });
                 }
 
-                await Commands.destroy({
+                await typesCommands.destroy({
                     where: {
-                        id: IdCommand
+                        id: Idtype
                     }
                 });
 
                 return res.status(200).send({
                     erro: false,
-                    message: "Commands delete with success",
+                    message: "Types commands delete with success",
 
 
                 });
@@ -171,7 +166,7 @@ module.exports = {
 
             return res.status(400).send({
                 erro: true,
-                message: "id command is requeried",
+                message: "id Types commands is requeried",
             })
 
         }

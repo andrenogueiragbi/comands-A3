@@ -17,7 +17,7 @@ routes.delete('/commands/:IdCommand', commands.delete)
 routes.get('/type', typeCommand.index)
 routes.post('/type',isBody, typeCommand.store)
 routes.put('/type/:Idtype',isBody, typeCommand.update)
-
+routes.delete('/type/:Idtype', typeCommand.delete)
 
 /*ROTA DE LOGIN DA API*/
 routes.get('/users', authMiddleware, UserController.index);
