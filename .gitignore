@@ -1,6 +1,7 @@
 
+.DB_SERVER.SQL
 DB_SERVER.SQL
-.SQL
+*.SQL
 # Logs
 logs
 *.log
