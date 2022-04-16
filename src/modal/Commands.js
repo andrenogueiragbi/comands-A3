@@ -8,8 +8,13 @@ class Commands extends Model {
             description: DataTypes.STRING,
             commands: DataTypes.TEXT,
             tags: DataTypes.STRING,
-            creator: DataTypes.STRING    
+            creator: DataTypes.STRING,   
+            type_id: DataTypes.INTEGER, 
         }, {sequelize})
+    }
+    static associate(models) {
+        this.belongsTo(models.TypesCommand, { foreignKey: 'id', as: 'types_commands' });
+        
     }
 
 }

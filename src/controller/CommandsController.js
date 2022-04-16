@@ -32,14 +32,15 @@ module.exports = {
     async store(req, res) {
 
 
-        const { type,
+        const { 
             title,
             description,
             commands,
             tags,
-            creator } = req.body;
+            creator,
+            type_id } = req.body;
 
-        if (type && title && description && commands && tags && creator) {
+        if ( title && description && commands && tags && creator && type_id) {
 
             try {
 
@@ -50,7 +51,7 @@ module.exports = {
                     });
                 }
 
-                const commandsNew = await Commands.create({ type, title, description, commands, tags, creator });
+                const commandsNew = await Commands.create({ title, description, commands, tags, creator,type_id });
 
                 return res.status(200).send({
                     erro: false,
@@ -70,7 +71,7 @@ module.exports = {
 
             return res.status(400).send({
                 erro: true,
-                message: "type, title,description, commands, tags and creator is requeried",
+                message: "type_id, title,description, commands, tags and creator is requeried",
             })
 
         }
@@ -79,9 +80,9 @@ module.exports = {
     async update(req, res) {
 
         const { IdCommand } = req.params;
-        const { type, title, description, commands, tags, creator } = req.body;
+        const { type_id, title, description, commands, tags, creator } = req.body;
 
-        if (IdCommand && type && title && description && commands && tags && creator) {
+        if (IdCommand && type_id && title && description && commands && tags && creator) {
 
             try {
                 const userExist = await Commands.findByPk(IdCommand);
@@ -102,7 +103,7 @@ module.exports = {
                     });
                 }
 
-                await Commands.update({ type, title, description, commands, tags, creator }, {
+                await Commands.update({ type_id, title, description, commands, tags, creator }, {
                     where: {
                         id: IdCommand,
                     }
@@ -125,7 +126,7 @@ module.exports = {
         } else {
             return res.status(400).send({
                 erro: true,
-                message: "id command, type, title, description commands,tags ,creator , is requeried",
+                message: "id command, type_id, title, description commands,tags ,creator , is requeried",
             })
         }
 
