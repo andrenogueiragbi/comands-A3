@@ -21,7 +21,7 @@ module.exports = {
 
         } catch (e) {
 
-            return res.status(400).send({
+            return res.status(500).send({
                 erro: true,
                 message: e,
             });

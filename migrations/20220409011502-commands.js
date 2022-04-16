@@ -26,15 +26,17 @@ module.exports = {
         type:Sequelize.STRING,
         allowNull: false,
       },
+
+      creator: {
+        type:Sequelize.STRING,
+      },
+      
       type_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'types_commands', key: 'id' },
         onUpdate: 'CASCADE',
         //onDelete: 'CASCADE',
-      },
-      creator: {
-        type:Sequelize.STRING,
       },
 
       created_at: {
