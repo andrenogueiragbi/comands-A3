@@ -9,11 +9,6 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      type: {
-        type:Sequelize.STRING,
-        aloowNull: false,
-
-      },
       title: {
         type:Sequelize.STRING,
         allowNull: false,
@@ -31,8 +26,17 @@ module.exports = {
         type:Sequelize.STRING,
         allowNull: false,
       },
+
       creator: {
         type:Sequelize.STRING,
+      },
+      
+      type_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'types_commands', key: 'id' },
+        onUpdate: 'CASCADE',
+        //onDelete: 'CASCADE',
       },
 
       created_at: {
