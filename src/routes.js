@@ -2,6 +2,8 @@ const express = require('express');
 const commands = require('./controller/CommandsController')
 const typeCommand = require('./controller/TypeCommandsController')
 const UserController = require('./controller/UserController');
+const UserPublicController = require('./controller/UserPublicController');
+const CoupomController = require('./controller/CouponController');
 const authMiddleware = require('./middlewares/auth');
 const isBody = require('./controller/checkBody')
 
@@ -13,11 +15,17 @@ routes.post('/commands',isBody, commands.store)
 routes.put('/commands/:IdCommand',isBody, commands.update)
 routes.delete('/commands/:IdCommand', commands.delete)
 
-/*ROTA DE COMANDO DA API*/
+/*ROTA DE TIPO DA API*/
 routes.get('/type', typeCommand.index)
 routes.post('/type',isBody, typeCommand.store)
 routes.put('/type/:Idtype',isBody, typeCommand.update)
 routes.delete('/type/:Idtype', typeCommand.delete)
+
+
+/*ROTA DE CUPOM DA API*/
+routes.get('/coupon', CoupomController.index)
+routes.post('/coupon',isBody, CoupomController.store)
+routes.delete('/coupon/:IdCoupon', CoupomController.delete)
 
 /*ROTA DE LOGIN DA API*/
 routes.get('/users', authMiddleware, UserController.index);
@@ -25,6 +33,12 @@ routes.post('/users',isBody,UserController.store);
 routes.put('/users/:user_id',isBody, authMiddleware, UserController.update);
 routes.delete('/users/:user_id',authMiddleware, UserController.delete);
 routes.post('/users/login', UserController.login);
+
+/*ROTA CRIAR LOGIN COM CUPON*/
+routes.post('/users/coupon',isBody,UserPublicController.store);
+
+
+
 
 
 routes.get('/online', (req, res) => {
