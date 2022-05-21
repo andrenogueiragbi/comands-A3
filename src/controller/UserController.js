@@ -2,6 +2,7 @@ const User = require('../modal/User');
 const Commands = require('../modal/Commands');
 const bcrypt = require('bcryptjs');
 
+
 const jwt = require('jsonwebtoken');
 
 const authConfig = require('../config/auth.json')
@@ -60,7 +61,19 @@ module.exports = {
 
     async index(req, res) {
 
+
         try {
+
+            const isUser = await User.findOne({ where: { id: req.userId } })
+
+
+
+            if (isUser.level === 1){
+                return res.status(200).send({ isUser });
+            }
+
+
+
             const users = await User.findAll();
 
             if (users == "" || users == null) {
@@ -91,6 +104,8 @@ module.exports = {
                     });
                 }
 
+      
+
                 const user = await User.create({ name, password, email, level, company });
 
                 return res.status(200).send({
@@ -120,12 +135,48 @@ module.exports = {
     },
 
     async update(req, res) {
-        const { name, password, email, level, company } = req.body;
+        const { name, password, email, level, company ,} = req.body;
         const { user_id } = req.params;
 
-        if (user_id && name && email && level && company) {
+        if (user_id && name && email && level && company && password) {
+
             try {
+
+                const isUser = await User.findOne({ where: { id: req.userId } })
+
+
+                if (isUser.level === 1){
+
+
+                    if(isUser.id != user_id ){
+                        return res.status(401).send({
+                            erro: true,
+                            message: 'not autorized, user different from id'
+                        });
+
+                    }
+
+                    await User.update({
+                        name, password:bcrypt.hashSync(password), email,level:1
+                    }, {
+                        where: {
+                            id: isUser.id
+                        }
+                    });
+                    const user = await User.findOne({ where: { id: isUser.id } });
+
+                    return res.status(200).send({
+                        erro: false,
+                        message: "Usuario update with success",
+                        user
+                    })
+
+
+                }
+
                 const userExist = await User.findByPk(user_id);
+
+                
 
                 if (!userExist) {
                     return res.status(404).send({
@@ -134,9 +185,11 @@ module.exports = {
                     });
 
                 }
+                
+                
 
                 await User.update({
-                    name, password, email
+                    name, password:bcrypt.hashSync(password), level, email
                 }, {
                     where: {
                         id: userExist.id
@@ -171,6 +224,22 @@ module.exports = {
         const { user_id } = req.params;
         if (user_id) {
             try {
+                const isUser = await User.findOne({ where: { id: req.userId } })
+
+
+                if (isUser.level === 1){
+
+
+                    if(isUser.id != user_id ){
+                        return res.status(401).send({
+                            erro: true,
+                            message: 'not autorized, user different from id'
+                        });
+
+                    }
+                    
+
+                }
 
                 if (!await User.findByPk(user_id)) {
                     return res.status(404).send({

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
+
 class Commands extends Model {
     static init(sequelize){
         super.init({

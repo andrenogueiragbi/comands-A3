@@ -39,6 +39,14 @@ module.exports = {
                 }
 
                 const user = await User.create({ name, password, email, company });
+                await Coupon.update({
+                    active: false
+                }, {
+                    where: {
+                        number: coupon
+                    }
+                });
+
 
                 return res.status(200).send({
                     erro: false,

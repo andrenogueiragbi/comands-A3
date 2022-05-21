@@ -1,5 +1,6 @@
 const express = require('express');
 const commands = require('./controller/CommandsController')
+const commandsAdvanced = require('./controller/CommandsAdvancedController')
 const typeCommand = require('./controller/TypeCommandsController')
 const UserController = require('./controller/UserController');
 const UserPublicController = require('./controller/UserPublicController');
@@ -14,6 +15,10 @@ routes.get('/commands', commands.index)
 routes.post('/commands',isBody, commands.store)
 routes.put('/commands/:IdCommand',isBody, commands.update)
 routes.delete('/commands/:IdCommand', commands.delete)
+
+/*BUSCA AVANCADAS DE COMANDOS*/
+routes.get('/commands/search/:type', commandsAdvanced.searchAllType)
+
 
 /*ROTA DE TIPO DA API*/
 routes.get('/type', typeCommand.index)
