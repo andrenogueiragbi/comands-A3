@@ -28,7 +28,16 @@ module.exports = {
             try {
                 const commands = await Commands.sequelize.query(
                     `SELECT 
-                        * 
+                    c.id ,
+                    c.title ,
+                    c.description ,
+                    c.commands ,
+                    c.tags ,
+                    c.creator ,
+                    c.created_at  ,
+                    c.updated_at ,
+                    tc.name ,
+                    tc.id as type_id
                     from commands c 
                     JOIN types_commands tc on c.type_id = tc.id
                     where tc.name = '${type}';`

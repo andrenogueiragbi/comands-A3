@@ -28,7 +28,7 @@ routes.delete('/type/:Idtype', typeCommand.delete)
 
 
 /*ROTA DE CUPOM DA API*/
-routes.get('/coupon', CoupomController.index)
+routes.get('/coupon',authMiddleware, CoupomController.index)
 routes.post('/coupon',isBody, CoupomController.store)
 routes.delete('/coupon/:IdCoupon', CoupomController.delete)
 
