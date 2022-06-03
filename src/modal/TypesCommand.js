@@ -6,10 +6,7 @@ class typesCommands extends Model {
             name: DataTypes.STRING,
         }, {sequelize})
     }
-    static associate(models) {
-        this.hasMany(models.Commands, { foreignKey: 'id', as: 'commands' });
-        
-    }
+
 
 }
 module.exports = typesCommands

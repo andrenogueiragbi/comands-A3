@@ -12,10 +12,7 @@ class Commands extends Model {
             type_id: DataTypes.INTEGER, 
         }, {sequelize})
     }
-    static associate(models) {
-        this.belongsTo(models.TypesCommand, { foreignKey: 'id', as: 'types_commands' });
         
-    }
 
 }
 module.exports = Commands

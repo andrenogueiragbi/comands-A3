@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 //TO SQL LOCAL
-module.exports = {
+/* module.exports = {
     dialect: 'sqlite', 
     storage: './DB_SERVER.SQL',
     define:{
@@ -10,11 +10,11 @@ module.exports = {
        
     },
     logging: false,
-};
+}; */
 
 
 //TO SQL HEROKU POSTGRES
-/*module.exports = {
+module.exports = {
     dialect: 'postgres',
     database: process.env.DATABASE,
     username: process.env.DB_USER,
@@ -29,4 +29,17 @@ module.exports = {
         underscored: true,
     },
     logging: false,
-};*/
+};
+
+/* module.exports = {
+    dialect: 'mysql',
+    database: process.env.DATABASE,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    host: process.env.DB_HOST,
+    define: {
+        timestamps: true,
+        underscored: true,
+    },
+    logging: false,
+}; */

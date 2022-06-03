@@ -34,9 +34,7 @@ module.exports = {
       type_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'types_commands', key: 'id' },
-        onUpdate: 'CASCADE',
-        //onDelete: 'CASCADE',
+
       },
 
       created_at: {
