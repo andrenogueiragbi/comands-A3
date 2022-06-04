@@ -44,7 +44,7 @@ module.exports = {
 
             try {
 
-                if (await Commands.findOne({ where: { commands: commands } })) {
+                if (await Commands.findOne({ where: { commands: commands,title:title,description:description,tags:tags } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'commands already exists',
