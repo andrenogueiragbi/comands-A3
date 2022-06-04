@@ -20,6 +20,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/v1',routes);
 
-app.listen(process.env.PORT || 5000, () =>{
-    console.log("Rodando http na porta 5000 \\O/.");
+app.listen(process.env.PORT || 5001, () =>{
+    console.log("Rodando http na porta 5001 \\O/.");
 })

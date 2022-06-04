@@ -6,7 +6,7 @@ module.exports = {
     async searchAllType(req, res) {
         const { type } = req.params;
 
-        console.log(type)
+        
 
 
 /*         const commands = await TypesCommands.findAll({include: {model: Commands}})
@@ -22,8 +22,6 @@ module.exports = {
         
 
         if (type) {
-
-            id = 1
 
             try {
                 const commands = await Commands.sequelize.query(
@@ -53,7 +51,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: 'The server failed',
 
                 });
             }

@@ -23,7 +23,7 @@ module.exports = {
 
             return res.status(500).send({
                 erro: true,
-                message: e,
+                message: 'The server failed'
             });
         }
 
@@ -57,7 +57,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: 'The server failed'
                 });
             }
 
@@ -111,7 +111,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: 'The server failed'
                 });
 
             }
@@ -158,7 +158,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: 'The server failed'
                 });
             }
 

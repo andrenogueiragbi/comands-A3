@@ -23,7 +23,7 @@ module.exports = {
 
             return res.status(500).send({
                 erro: true,
-                message: e,
+                message: 'The server failed',
             });
         }
 
@@ -44,10 +44,14 @@ module.exports = {
 
             try {
 
-                if (await Commands.findOne({ where: { commands: commands,title:title,description:description,tags:tags } })) {
+                duplicidade = await Commands.findOne({ where: { commands: commands } })
+
+
+                if (duplicidade && duplicidade.dataValues.type_id === type_id) {
                     return res.status(400).send({
                         erro: true,
                         message: 'commands already exists',
+
                     });
                 }
 
@@ -63,7 +67,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: 'The server failed',
                 });
             }
 
@@ -95,13 +99,19 @@ module.exports = {
 
                 }
 
-                if (await Commands.findOne({ where: { commands: commands } })) {
+
+                duplicidade = await Commands.findOne({ where: { commands: commands } })
+
+
+                if (duplicidade && duplicidade.dataValues.type_id === type_id) {
                     return res.status(400).send({
                         erro: true,
                         message: 'commands already exists',
 
                     });
                 }
+
+    
 
                 await Commands.update({ type_id, title, description, commands, tags, creator }, {
                     where: {
@@ -117,7 +127,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: "The server failed",
                 });
 
             }
@@ -164,7 +174,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send({
                     erro: true,
-                    message: e,
+                    message: 'The server failed',
                 });
             }
 
