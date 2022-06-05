@@ -10,12 +10,12 @@ module.exports = {
         allowNull: false,
       },
       title: {
-        type:Sequelize.STRING,
+        type:Sequelize.TEXT,
         allowNull: false,
       },
 
       description: {
-        type:Sequelize.STRING,
+        type:Sequelize.TEXT,
         allowNull: false,
       },
       commands: {
@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
       },
       tags: {
-        type:Sequelize.STRING,
+        type:Sequelize.TEXT,
         allowNull: false,
       },
 
