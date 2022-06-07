@@ -28,8 +28,10 @@ module.exports = {
 
         }
 
+        
 
-        if (name && email && password && company) {
+
+        if (name && email && password && company && ticket) {
             try {
 
                 if (await User.findOne({ where: { email: email } })) {

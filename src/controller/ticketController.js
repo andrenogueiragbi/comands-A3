@@ -51,12 +51,12 @@ module.exports = {
                 number = rash.toString('hex')
 
  
-                const couponNew = await ticket.create({ number, email_user });
+                const tiketNew = await ticket.create({ number, email_user });
 
                 return res.status(200).send({
                     erro: false,
                     message: 'Coupon created success',
-                    couponNew
+                    tiketNew
                 })
 
 

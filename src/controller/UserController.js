@@ -67,7 +67,7 @@ module.exports = {
 
 
             if (isUser.level === 1) {
-                return res.status(200).send({ isUser });
+                return res.status(200).send({ "users":isUser });
             }
 
 
@@ -93,17 +93,17 @@ module.exports = {
 
         try {
 
-            const idUser = await User.findOne({ where: { id: req.userId } })
+            const users = await User.findOne({ where: { id: req.userId } })
 
 
 
-            if (idUser == "" || idUser == null) {
+            if (users == "" || users == null) {
                 return res.status(200).send({ 
                     erro: true,
                     message: 'user not found' });
             }
 
-            return res.status(200).send({ idUser });
+            return res.status(200).send({ users });
 
         } catch (e) {
             return res.status(500).send({
