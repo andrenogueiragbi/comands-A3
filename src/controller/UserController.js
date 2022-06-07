@@ -61,14 +61,12 @@ module.exports = {
 
     async index(req, res) {
 
-
         try {
 
             const isUser = await User.findOne({ where: { id: req.userId } })
 
 
-
-            if (isUser.level === 1){
+            if (isUser.level === 1) {
                 return res.status(200).send({ isUser });
             }
 
@@ -81,6 +79,31 @@ module.exports = {
             }
 
             return res.status(200).send({ users });
+
+        } catch (e) {
+            return res.status(500).send({
+                erro: true,
+                message: 'The server failed'
+            });
+        }
+
+    },
+
+    async indexID(req, res) {
+
+        try {
+
+            const idUser = await User.findOne({ where: { id: req.userId } })
+
+
+
+            if (idUser == "" || idUser == null) {
+                return res.status(200).send({ 
+                    erro: true,
+                    message: 'user not found' });
+            }
+
+            return res.status(200).send({ idUser });
 
         } catch (e) {
             return res.status(500).send({
@@ -104,7 +127,7 @@ module.exports = {
                     });
                 }
 
-      
+
 
                 const user = await User.create({ name, password, email, level, company });
 
@@ -135,20 +158,20 @@ module.exports = {
     },
 
     async update(req, res) {
-        const { name, password, email, level, company ,} = req.body;
+        const { name, password, email, level, company, } = req.body;
         const { user_id } = req.params;
 
-        if (user_id && name && email && level && company && password) {
+        if (user_id && name && email && level && company) {
 
             try {
 
                 const isUser = await User.findOne({ where: { id: req.userId } })
 
 
-                if (isUser.level === 1){
+                if (isUser.level === 1) {
 
 
-                    if(isUser.id != user_id ){
+                    if (isUser.id != user_id) {
                         return res.status(401).send({
                             erro: true,
                             message: 'not autorized, user different from id'
@@ -156,13 +179,33 @@ module.exports = {
 
                     }
 
+                    if (password) {
+                        await User.update({
+                            name, password: bcrypt.hashSync(password), email, level: 1
+                        }, {
+                            where: {
+                                id: isUser.id
+                            }
+                        });
+
+                        const user = await User.findOne({ where: { id: isUser.id } });
+
+                        return res.status(200).send({
+                            erro: false,
+                            message: "Usuario update with success",
+                            user
+                        })
+
+                    }
+
                     await User.update({
-                        name, password:bcrypt.hashSync(password), email,level:1
+                        name, email, level: 1
                     }, {
                         where: {
                             id: isUser.id
                         }
                     });
+
                     const user = await User.findOne({ where: { id: isUser.id } });
 
                     return res.status(200).send({
@@ -172,11 +215,19 @@ module.exports = {
                     })
 
 
+
+
+
+
+
+
+
                 }
 
+                //quando o user é ADMIN nível 2
                 const userExist = await User.findByPk(user_id);
 
-                
+
 
                 if (!userExist) {
                     return res.status(404).send({
@@ -185,11 +236,30 @@ module.exports = {
                     });
 
                 }
-                
-                
+
+                if (password) {
+
+                    await User.update({
+                        name, password: bcrypt.hashSync(password), level, email, company
+                    }, {
+                        where: {
+                            id: userExist.id
+                        }
+                    });
+
+                    const user = await User.findOne({ where: { id: userExist.id } });
+
+                    return res.status(200).send({
+                        erro: false,
+                        message: "Usuario update with success",
+                        user
+                    })
+                }
+
+
 
                 await User.update({
-                    name, password:bcrypt.hashSync(password), level, email
+                    name, level, email, company
                 }, {
                     where: {
                         id: userExist.id
@@ -227,17 +297,17 @@ module.exports = {
                 const isUser = await User.findOne({ where: { id: req.userId } })
 
 
-                if (isUser.level === 1){
+                if (isUser.level === 1) {
 
 
-                    if(isUser.id != user_id ){
+                    if (isUser.id != user_id) {
                         return res.status(401).send({
                             erro: true,
                             message: 'not autorized, user different from id'
                         });
 
                     }
-                    
+
 
                 }
 

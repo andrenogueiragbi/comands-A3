@@ -37,6 +37,7 @@ routes.post('/users/login', UserController.login);
 routes.post('/users',isBody,UserController.store);
 /*ROTA DE MATER USER DA API*/
 routes.get('/users', authMiddleware, UserController.index);
+routes.get('/users/:user_id', authMiddleware, UserController.indexID);
 routes.put('/users/:user_id',isBody, authMiddleware, UserController.update);
 routes.delete('/users/:user_id',authMiddleware, UserController.delete);
 
