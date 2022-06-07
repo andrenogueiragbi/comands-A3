@@ -1,4 +1,4 @@
-const Coupon = require('../modal/Coupon');
+const ticket = require('../modal/Ticket');
 const crypto = require('crypto');
 
 module.exports = {
@@ -6,9 +6,9 @@ module.exports = {
 
         try {
 
-            const coupon = await Coupon.findAll();
+            const tickets = await ticket.findAll();
 
-            if (coupon.length == 0) {
+            if (tickets.length == 0) {
                 return res.status(404).send({
                     erro: true,
                     message: 'Coupon list is empty'
@@ -17,7 +17,7 @@ module.exports = {
 
             return res.status(200).send({
                 erro: false,
-                coupon
+                tickets
             });
 
         } catch (e) {
@@ -39,7 +39,7 @@ module.exports = {
 
             try {
 
-                if (await Coupon.findOne({ where: { email_user: email_user } })) {
+                if (await ticket.findOne({ where: { email_user: email_user } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'user already exists to create coupon'
@@ -47,12 +47,11 @@ module.exports = {
                 }
 
 
-
                 rash = crypto.randomBytes(3)
                 number = rash.toString('hex')
 
  
-                const couponNew = await Coupon.create({ number, email_user });
+                const couponNew = await ticket.create({ number, email_user });
 
                 return res.status(200).send({
                     erro: false,
@@ -81,15 +80,15 @@ module.exports = {
   
 
     async delete(req, res) {
-        const { IdCoupon } = req.params;
+        const { Idticket } = req.params;
 
-        console.log(IdCoupon)
+        
 
-        if (IdCoupon) {
+        if (Idticket) {
 
             try {
 
-                if (!await Coupon.findOne({ where: { id: IdCoupon } })) {
+                if (!await ticket.findOne({ where: { id: Idticket } })) {
                     return res.status(400).send({
                         erro: true,
                         message: 'Coupon does not exist to delete',
@@ -97,9 +96,9 @@ module.exports = {
                 }
 
                 
-                await Coupon.destroy({
+                await ticket.destroy({
                     where: {
-                        id: IdCoupon
+                        id: Idticket
                     }
                 });
 

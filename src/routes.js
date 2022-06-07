@@ -4,7 +4,7 @@ const commandsAdvanced = require('./controller/CommandsAdvancedController')
 const typeCommand = require('./controller/TypeCommandsController')
 const UserController = require('./controller/UserController');
 const UserPublicController = require('./controller/UserPublicController');
-const CoupomController = require('./controller/CouponController');
+const CoupomController = require('./controller/ticketController');
 const authMiddleware = require('./middlewares/auth');
 const isBody = require('./controller/checkBody')
 
@@ -27,10 +27,10 @@ routes.put('/type/:Idtype',authMiddleware,isBody, typeCommand.update)
 routes.delete('/type/:Idtype',authMiddleware, typeCommand.delete)
 
 
-/*ROTA DE CUPOM DA API*/
-routes.get('/coupon',authMiddleware, CoupomController.index)
-routes.post('/coupon',isBody, CoupomController.store)
-routes.delete('/coupon/:IdCoupon', CoupomController.delete)
+/*ROTA DE TIKET DA API*/
+routes.get('/ticket',authMiddleware, CoupomController.index)
+routes.post('/ticket',isBody, CoupomController.store)
+routes.delete('/ticket/:Idticket', CoupomController.delete)
 
 /*ROTA DE LOGIN DA API*/
 routes.post('/users/login', UserController.login);
@@ -43,7 +43,7 @@ routes.delete('/users/:user_id',authMiddleware, UserController.delete);
 
 
 /*ROTA CRIAR LOGIN COM CUPON*/
-routes.post('/users/coupon',isBody,UserPublicController.store);
+routes.post('/users/ticket/',isBody,UserPublicController.store);
 
 
 

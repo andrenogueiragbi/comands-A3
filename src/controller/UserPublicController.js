@@ -1,6 +1,6 @@
 const User = require('../modal/User');
 const Commands = require('../modal/Commands');
-const Coupon = require('../modal/Coupon');
+const Ticket = require('../modal/Ticket');
 const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
@@ -17,12 +17,13 @@ function generateToken(params = {}) {
 module.exports = {
 
     async store(req, res) {
-        const { name, email, password, coupon, company } = req.body;
 
-        if(!await Coupon.findOne({ where: { number: coupon, active:true, email_user:email} })){
+        const { name, email, password, ticket, company } = req.body;
+
+        if(!await Ticket.findOne({ where: { number: ticket, active:true, email_user:email} })){
             return res.status(400).send({
                 erro: true,
-                message: 'Coupon or user invalid'
+                message: 'Ticket or user invalid'
             });
 
         }
@@ -39,11 +40,11 @@ module.exports = {
                 }
 
                 const user = await User.create({ name, password, email, company });
-                await Coupon.update({
+                await Ticket.update({
                     active: false
                 }, {
                     where: {
-                        number: coupon
+                        number: ticket
                     }
                 });
 

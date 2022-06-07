@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-class Coupon extends Model {
+class Ticket extends Model {
     static init(sequelize){
         super.init({
             number: DataTypes.STRING,
@@ -10,4 +10,4 @@ class Coupon extends Model {
     }
 
 }
-module.exports = Coupon
+module.exports = Ticket
