@@ -62,7 +62,7 @@ O servidor está configurado para rodar na porta '5001'
 | Plugin | README |
 | ------ | ------ |
 | bcryptjs | [bcryptjs/README.md][bcryptjs] |
-| cors | [cors/README.md] [cors] |
+| cors | [cors/README.md][cors] |
 | dotenv | [dotenv/README.md][dotenv] |
 | express | [express/README.md][express] |
 | jsonwebtoken | [jsonwebtoken/README.md][jsonwebtoken] |
