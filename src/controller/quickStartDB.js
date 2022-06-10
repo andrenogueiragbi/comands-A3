@@ -35,8 +35,8 @@ module.exports = {
     async ckeckUser() {
 
         if ((await User.findAll()).length == 0) {
-            console.log(`Insert data user debug`)
-            await User.create({ name: "debug", password: "debug", email: "debug@debug", level: 2, company: "debug" })
+            console.log(`Insert data user Administrador\n`)
+            await User.create({ name: "Administrador", password: "admin", email: "admin@admin", level: 2, company: "Start" })
 
         }
         return true

@@ -50,7 +50,7 @@ routes.post('/users/ticket/',isBody,UserPublicController.store);
 
 
 routes.get('/online', (req, res) => {
-    res.status(200).send('<h> WELCOME API!!! V 1.6  (C) MICKS 2021-2022 </h>')});
+    res.status(200).send('<h> WELCOME API!!! V 1.0  (C) ANDRÉ - RONALDO 2022 </h>')});
 
 
 module.exports = routes;
